@@ -8,31 +8,32 @@ import java.sql.*;
  */
 public class TestHiveClient {
 
-    private static final String driverName = "org.apache.bigdata01.hive.jdbc.HiveDriver";
+    private static final String driverName = "org.apache.bigdata02.hive.jdbc.HiveDriver";
+    private static ResultSet rs = null;
+    private static Connection conn = null;
+    private static Statement stat = null;
 
     public static void main(String[] args) throws SQLException {
         try {
             Class.forName(driverName);
+            Connection conn = DriverManager.getConnection
+                    ("jdbc:hive2://bigdata-senior02.ibeifeng.com:10000/hadoop14");
+             stat = conn.createStatement();
 
+            String sql = "show tables";
+            System.out.println("Running:" + sql);
+            rs = stat.executeQuery(sql);
+            while (rs.next()) {
+                System.out.println(rs.getString(1));
+            }
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        }finally {
+            if (rs != null) rs.close();
+            if (stat != null) stat.close();
+            if (conn != null) conn.close();
         }
-
-        Connection conn = DriverManager.getConnection
-                ("jdbc:hive2://bigdata-senior02.ibeifeng.com:10000/hadoop14");
-        Statement st = conn.createStatement();
-
-        String sql = "show tables";
-        System.out.println("Running:" + sql);
-        ResultSet rs = st.executeQuery(sql);
-        while (rs.next()) {
-            System.out.println(rs.getString(1));
-        }
-
-        if (rs != null) rs.close();
-        if (st != null) st.close();
-        if (conn != null) conn.close();
 
     }
 }

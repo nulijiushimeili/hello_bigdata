@@ -21,24 +21,28 @@
  */
 -->
 <configuration>
-	<!--指定临时文件的位置-->
 	<property >
-		<name>bigdata01.hbase.tmp.dir</name>
-		<value>/opt/moduels/bigdata01.hbase-0.98.6-hadoop2/data/tmp</value>
+		<name>hbase.tmp.dir</name>
+		<value>/opt/cdh5/hbase-0.98.6-cdh5.3.6/data/tmp</value>
 	</property>
-	<!--指定HBASE的数据文件在hdfs上的存储路径,就是RegionServer的共享目录-->
 	<property >
-		<name>bigdata01.hbase.rootdir</name>
-		<value>hdfs://bigdata-senior02.ibeifeng.com:8020/bigdata01.hbase</value>
+		<name>hbase.rootdir</name>
+		<value>hdfs://bigdata-senior01.ibeifeng.com:8020/hbase</value>
 	</property>
-	<!--集群运行还是单机?true是集群模式,false是单机模式-->
 	<property >
-		<name>bigdata01.hbase.cluster.distributed</name>
+		<name>hbase.cluster.distributed</name>
 		<value>true</value>
 	</property>
-	<!--指定ZK实例的位置-->
 	<property>
-		<name>bigdata01.hbase.zookeeper.quorum</name>
-		<value>bigdata-senior02.ibeifeng.com</value>
+		<name>hbase.zookeeper.quorum</name>
+		<value>bigdata-senior01.ibeifeng.com</value>
 	</property>
+	
+	
+	
+	
+	
+	
+	
+
 </configuration>

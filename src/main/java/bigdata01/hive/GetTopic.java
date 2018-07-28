@@ -1,9 +1,12 @@
 package bigdata01.hive;
 
+import org.apache.hadoop.hive.ql.exec.UDF;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GetTopic {
+
+public class GetTopic extends UDF {
 
     public String evaluate(final String url){
         if(url == null || url.trim().length() == 0){

@@ -20,15 +20,9 @@
 	<property>
 		<name>dfs.replication</name>
 		<value>1</value>
-	</property>
-	<!--配置secondarynamenode,作用是合并日志和元数据镜像文件-->
-	<property>
-		<name>dfs.namenode.secondary.http-address</name>
-		<value>bigdata-senior02.ibeifeng.com:50090</value>
-	</property>
-	<!--配置不开启用户权限检测-->
-	<property>
-		<name>dfs.permissions.enabled</name>
-		<value>false</value>
-	</property>
+	</property>	
+		<property>
+	        <name>dfs.namenode.secondary.http-address</name>
+	        <value>bigdata-senior02.ibeifeng.com:50090</value>
+    	</property>
 </configuration>

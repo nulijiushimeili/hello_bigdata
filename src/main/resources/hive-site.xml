@@ -19,11 +19,11 @@
 -->
 
 <configuration>
-	<!--bigdata01.hive 的元数据服务, 供spark SQL 使用-->
-	<!--<property>-->
-		<!--<name>bigdata01.hive.metastore.uris</name>-->
-		<!--<value>thrift://bigdata-senior02.ibeifeng.com:9083</value>-->
-	<!--</property>-->
+	<!--hive 的元数据服务, 供spark SQL 使用-->
+	<property>
+		<name>hive.metastore.uris</name>
+		<value>thrift://bigdata-senior02.ibeifeng.com:9083</value>
+	</property>
 
 	<!--配置mysql数据库的链接URL和数据库名metastore,?后面的表达式代表如果这个数据库
 	不存在,会自动创建-->
@@ -51,20 +51,51 @@
 	</property>
 
 	<property>
-		<name>bigdata01.hive.cli.print.header</name>
+		<name>hive.cli.print.header</name>
 		<value>true</value>
 		<description>Whether to print the names of the columns in query output.</description>
 	</property>
 	<property>
-		<name>bigdata01.hive.cli.print.current.db</name>
+		<name>hive.cli.print.current.db</name>
 		<value>true</value>
 		<description>Whether to include the current database in the Hive prompt.</description>
 	</property>
 
 
-	<!--bigdata01.hive on spark or spark on yarn -->
+	<!--hive on spark or spark on yarn -->
+
+	<!--spark.sql.warehouse.dir-->
+
 	<property>
-		<name>bigdata01.hive.execution.engine</name>
+		<name>hive.metastore.schema.verification</name>
+		<value>false</value>
+	</property>
+	<property>
+		<name>hive.metastore.client.socket.timeout</name>
+		<value>120</value>
+	</property>
+	<property>
+		<name>hive.metastore.warehouse.dir</name>
+		<value>/user/hive/warehouse</value>
+	</property>
+	<property>
+		<name>hive.warehouse.subdir.inherit.perms</name>
+		<value>true</value>
+	</property>
+	<property>
+		<name>hive.auto.convert.join</name>
+		<value>true</value>
+	</property>
+	<property>
+		<name>hive.auto.convert.join.noconditionaltask.size</name>
+		<value>20971520</value>
+	</property>
+	<property>
+		<name>hive.optimize.bucketmapjoin.sortedmerge</name>
+		<value>false</value>
+	</property>
+	<property>
+		<name>hive.execution.engine</name>
 		<value>spark</value>
 	</property>
 	<property>
@@ -92,17 +123,17 @@
 		<value>org.apache.spark.serializer.KryoSerializer</value>
 	</property>
 	<property>
-		<name>spark.executor.memeory</name>
-		<value>128m</value>
+		<name>spark.executor.memory</name>
+		<value>512m</value>
 	</property>
 	<property>
-		<name>spark.driver.memeory</name>
-		<value>128m</value>
+		<name>spark.driver.memory</name>
+		<value>512m</value>
 	</property>
 	<property>
 		<name>spark.executor.extraJavaOptions</name>
 		<value>-XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"</value>
 	</property>
-	
+
 
 </configuration>

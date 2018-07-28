@@ -9,12 +9,51 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spark.version>2.0.0</spark.version>
         <scala.version>2.11.8</scala.version>
         <kafka.version>1.1.0</kafka.version>
         <!--<kafka.version>0.8.2.2</kafka.version>-->
     </properties>
 
     <dependencies>
+        <!-- Spark Core -->
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core -->
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
+        <!-- Spark SQL -->
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-sql -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
+        <!-- Spark Streaming -->
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-hive -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-hive_2.11</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka &ndash;&gt;-->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming-kafka_2.11</artifactId>
+            <version>1.6.3</version>
+        </dependency>
 
         <!-- HDFS Client -->
         <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client -->
@@ -122,7 +161,11 @@
             <version>6.8.7</version>
             <scope>compile</scope>
         </dependency>
-
+        <!--<dependency>-->
+            <!--<groupId>org.apache.kafka</groupId>-->
+            <!--<artifactId>kafka_2.11</artifactId>-->
+            <!--<version>0.10.0.1</version>-->
+        <!--</dependency>-->
 
 
     </dependencies>

@@ -21,16 +21,13 @@
 		<name>fs.defaultFS</name>
 		<value>hdfs://bigdata-senior02.ibeifeng.com:8020</value>
 	</property>
-	<!--//指定Hadoop系统生成文件的临时文件地址(这个属性官网没说,但是用处比较大),存放的临时文件很多地方都会用到,格式化namenode后生成的文件就放在这个目录下面-->
+<!--指定Hadoop系统生成文件的临时文件地址-->
 	<property>
-		<name>bigdata01.hadoop.tmp.dir</name>
-		<value>/opt/moduels/bigdata01.hadoop-2.5.0-cdh5.3.6/data/tmp</value>
-	</property>
-
-	<property>
-		<!--指定UI界面的用户名-->
-		<name>bigdata01.hadoop.http.staticuser.user</name>
-		<value>nulijiushimeili</value>
-	</property>
-
+		<name>hadoop.tmp.dir</name>
+		<value>/opt/spark/source/hadoop275/data/tmp</value>
+	</property>	
+		<property>
+	        <name>hadoop.http.staticuser.user</name>
+	        <value>nulijiushimeili</value>
+    	</property>	
 </configuration>

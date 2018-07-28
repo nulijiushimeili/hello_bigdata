@@ -1,0 +1,6 @@
+<hibernate>
+    <class name="user" table="t_user">
+        <property name="username"/>
+        <property name="password"/>
+    </class>
+</hibernate>
