@@ -12,43 +12,55 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
+import java.util.Arrays;
 
-public class MapReduceModule{
+public class MapReduceModule {
     // create Mapper class
-    public static class MapReduceMapper extends Mapper<LongWritable,Text,Text,IntWritable>{
+    public static class MapReduceMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         private Text mapOutputKey = new Text();
 
         // map output value +1 when the key already exists
         private IntWritable mapOutputValue = new IntWritable(1);
-        public void map(LongWritable key,Text value,Context context) throws IOException, InterruptedException {
+
+        public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
             // Read line with file,transform Text type to String type
             String lineValues = value.toString();
 
+//            去掉第一行的数据, 复制数据效率太低,这种方法不要使用
+//            String[] lines = lineValues.split("\n");
+//            lines = Arrays.copyOfRange(lines,1,lines.length-1);
+
+//            // 去掉第一行的数据
+//            String[] lines = lineValues.split("\n");
+//            lines[0] = "";
+
+
             // Split word by " ", grouped <key,value>
             String[] strs = lineValues.split(" ");
-            for(String str : strs){
+            for (String str : strs) {
 
                 // Set key output
                 mapOutputKey.set(str);
 
                 // Set map output
-                context.write(mapOutputKey,mapOutputValue);
+                context.write(mapOutputKey, mapOutputValue);
             }
         }
     }
 
 
     // Create Reducer class
-    public static class MapReduceReducer extends Reducer<Text,IntWritable,Text,IntWritable>{
+    public static class MapReduceReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
         private IntWritable outputValue = new IntWritable();
-        public void reduce(Text key,Iterable<IntWritable>values,Context context) throws IOException, InterruptedException {
-           int sum = 0;
-           for(IntWritable value:values){
-               sum += value.get();
-           }
-           outputValue.set(sum);
-           context.write(key, outputValue);
+
+        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
+            for (IntWritable value : values) {
+                sum += value.get();
+            }
+            outputValue.set(sum);
+            context.write(key, outputValue);
         }
     }
 
@@ -59,7 +71,7 @@ public class MapReduceModule{
         Configuration configuration = new Configuration();
 
         // Create a job
-        Job job = Job.getInstance(configuration,this.getClass().getSimpleName());
+        Job job = Job.getInstance(configuration, this.getClass().getSimpleName());
 
         // Which class the application to run,
         // and the MapReduce will start from here.
@@ -67,7 +79,7 @@ public class MapReduceModule{
 
         // input file
         Path inpath = new Path(args[0]);
-        FileInputFormat.addInputPath(job,inpath);
+        FileInputFormat.addInputPath(job, inpath);
 
         // output path
         Path outPath = new Path(args[1]);

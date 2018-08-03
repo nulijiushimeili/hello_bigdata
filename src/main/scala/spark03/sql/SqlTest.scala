@@ -2,7 +2,7 @@ package spark03.sql
 
 import java.io.File
 
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{Row, SparkSession}
 
 /**
   * create by nulijiushimeili on 2018-07-28
@@ -11,15 +11,11 @@ import org.apache.spark.sql.SparkSession
 case class Log(id:Int, content:String)
 object SqlTest {
   def main(args: Array[String]): Unit = {
-    val warehouse = new File("file:D:/mycode1/BigData/hello_bigdata/spark-warehouse")
-    if (warehouse == null){
-      warehouse.mkdir();
-    }
 
     val spark = SparkSession.builder()
       .master("local[*]")
       .appName(s"${this.getClass.getName}")
-      .config("spark.sql.warehouse.dir",warehouse.getAbsolutePath)
+      .config(SparkProperties.warehouse,SparkProperties.warehouseDir())
       .getOrCreate()
 
     import spark.implicits._
@@ -36,8 +32,14 @@ object SqlTest {
       val id = row.getAs[Int]("id")
       val content = row.getAs[String]("content")
       (id,content)
-    }.foreach(println)
+    }.take(20).foreach(println)
 
+
+    val rdd2 = res.rdd.map{
+      case Row(mid:Int,mName:String) => (s"$mid",s"$mName")
+    }
+
+    rdd2.foreach(println)
     spark.stop()
   }
 }

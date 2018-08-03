@@ -39,12 +39,6 @@ object RDDRelation {
 
     df.write.mode("overwrite").parquet("file:\\D:\\mycode1\\program\\spark\\spark01\\data\\pair.parquet")
 
-//    val parquetFile = spark.read.parquet("file:\\D:\\mycode1\\program\\spark\\spark01\\data\\pair.parquet")
-//
-//    parquetFile.where($"key" === 1).select($"value".as("a")).collect().foreach(println)
-//
-//    parquetFile.createOrReplaceTempView("parquetFile")
-//    spark.sql("select * from parquetFile").collect().foreach(println)
 
     spark.stop()
   }
