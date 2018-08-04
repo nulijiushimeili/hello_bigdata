@@ -15,4 +15,6 @@ object SparkProperties {
   }
 
   val warehouse = "spark.sql.warehouse.dir"
+
+  val master = "local[*]"
 }
