@@ -7,8 +7,8 @@ import spark03.sql.SparkProperties
   * create by nulijiushimeili on 2018-08-03
   */
 
-/** One method for defining the schema of an RDD is to make a case class with the desired column names and types.*/
-case class Record(key:Int,value:String)
+/** One method for defining the schema of an RDD is to make a case class with the desired column names and types. */
+case class Record(key: Int, value: String)
 
 object RDDRelation {
   def main(args: Array[String]): Unit = {
@@ -16,19 +16,19 @@ object RDDRelation {
       .builder()
       .appName(this.getClass.getName)
       .master("local[*]")
-      .config(SparkProperties.warehouse,SparkProperties.warehouseDir())
+      .config(SparkProperties.warehouse, SparkProperties.warehouseDir())
       .getOrCreate()
 
     /** Importing the SparkSession gives access to all the SQL functions and implicit conversions. */
     import spark.implicits._
 
-    val df = spark.createDataFrame((1 to 100).map(i => Record(i,s"val_$i")))
+    val df = spark.createDataFrame((1 to 100).map(i => Record(i, s"val_$i")))
 
     /** Any RDD containing case class can be use to create a temporary vies.
-      *  The schema of the view is automatically inferred using scala reflection.*/
+      * The schema of the view is automatically inferred using scala reflection. */
     df.createOrReplaceTempView("records")
 
-    /** Once tables hive been registered, you can run SQL queries over them.*/
+    /** Once tables hive been registered, you can run SQL queries over them. */
     println("Result of select * : ")
     spark.sql("select * from records").collect().foreach(println)
 
@@ -46,14 +46,14 @@ object RDDRelation {
     /** Queries can also be written using a LINQ-like Scala DSL. */
     df.where($"key" === 1).orderBy($"value".asc).select($"key").collect().foreach(println)
 
-    /** Write out an RDD as a parquet file with overwrite mode.*/
+    /** Write out an RDD as a parquet file with overwrite mode. */
     df.write.mode(SaveMode.Overwrite).parquet("pair.parquet")
 
     /** Read in parquet file. Parquet files are self-describing so the schema is preserved. */
     val parquetFile = spark.read.parquet("pair.parquet")
 
     /** Queries can be run using the DSL on parquet files just like the original RDD. */
-    parquetFile.where($"key" === 1) .select($"value".as("a")).collect.foreach(println)
+    parquetFile.where($"key" === 1).select($"value".as("a")).collect.foreach(println)
 
     /** There files can also be used to create a temporary view. */
     parquetFile.createOrReplaceTempView("parquetFile")

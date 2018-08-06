@@ -20,7 +20,7 @@ object ReadHiveMetastoreDemo {
     import spark.implicits._
     import spark.sql
 
-      sql("show databases").show()
+    sql("show databases").show()
 
 
   }

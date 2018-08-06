@@ -15,30 +15,30 @@ object DFtoMysql {
     val spark = SparkSession.builder()
       .master("local[*]")
       .appName("ReadMysql2")
-      .config("spark.sql.warehouse.dir","file:\\D:\\mycode1\\program\\spark\\spark01\\spark-warehouse")
+      .config("spark.sql.warehouse.dir", "file:\\D:\\mycode1\\program\\spark\\spark01\\spark-warehouse")
       .getOrCreate()
 
     import spark.implicits._
 
-    val stu4 = Student(17,"www",23,1)
-    val stu3 = Student(18,"www",23,1)
-    val stu1 = Student(20,"www",23,1)
-    val stu2 = Student(21,"xxx",23,1)
+    val stu4 = Student(17, "www", 23, 1)
+    val stu3 = Student(18, "www", 23, 1)
+    val stu1 = Student(20, "www", 23, 1)
+    val stu2 = Student(21, "xxx", 23, 1)
 
     val stuDF = spark.sparkContext.parallelize(
-//      List(Student(1,"www",23,1),Student(1,"xxx",23,1))
-      List(stu3,stu4,stu1,stu2)
+      //      List(Student(1,"www",23,1),Student(1,"xxx",23,1))
+      List(stu3, stu4, stu1, stu2)
     ).toDF()
 
     stuDF.show()
 
     val prop = new Properties()
-    prop.put("dirver","com.mysql.jdbc.Driver")
-    prop.put("user","root")
-    prop.put("password","123456")
+    prop.put("dirver", "com.mysql.jdbc.Driver")
+    prop.put("user", "root")
+    prop.put("password", "123456")
 
     stuDF.write.mode("append")
-      .jdbc("jdbc:mysql://localhost:3306/myschool","class",prop)
+      .jdbc("jdbc:mysql://localhost:3306/myschool", "class", prop)
 
     println("DataFrame write to msyql success!")
 

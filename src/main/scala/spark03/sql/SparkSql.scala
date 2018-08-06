@@ -130,7 +130,7 @@ object SparkSql {
       .map(attributes => Row(attributes(0), attributes(1).trim))
 
     // Apply the schema to the RDD
-    val peopleDF = spark.createDataFrame(rowRDD,schema)
+    val peopleDF = spark.createDataFrame(rowRDD, schema)
 
     // Creates a temporary view using the DataFrame
     peopleDF.createOrReplaceTempView("people")
