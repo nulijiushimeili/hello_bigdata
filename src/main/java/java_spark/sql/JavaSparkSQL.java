@@ -1,5 +1,5 @@
 
-package java_spark;
+package java_spark.sql;
 
 import java.util.ArrayList;
 import java.util.List;

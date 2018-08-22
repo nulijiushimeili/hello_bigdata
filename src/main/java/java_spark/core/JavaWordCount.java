@@ -1,4 +1,4 @@
-package java_spark;
+package java_spark.core;
 
 import scala.Tuple2;
 import org.apache.spark.SparkConf;
